@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💕 Love Compatibility Quiz</title>
+    <title>💕 Ultimate Love Compatibility Analysis</title>
     <style>
         * {
             margin: 0;
@@ -25,7 +25,7 @@
             background: white;
             border-radius: 20px;
             padding: 40px;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
@@ -59,7 +59,7 @@
         }
 
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         label {
@@ -69,18 +69,25 @@
             font-weight: 500;
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="date"], select {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 16px;
             transition: border-color 0.3s;
+            background: white;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
             outline: none;
             border-color: #667eea;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         .question {
@@ -91,7 +98,7 @@
             font-weight: 500;
             color: #333;
             margin-bottom: 15px;
-            font-size: 1.1em;
+            font-size: 1.05em;
         }
 
         .options {
@@ -132,6 +139,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.2s;
+            margin-top: 10px;
         }
 
         button:hover {
@@ -148,7 +156,7 @@
             height: 6px;
             background: #e0e0e0;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             overflow: hidden;
         }
 
@@ -157,6 +165,13 @@
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             width: 0%;
             transition: width 0.5s;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
         }
 
         .analyzing {
@@ -219,8 +234,72 @@
 
         .result-detail {
             color: #666;
-            line-height: 1.6;
+            line-height: 1.8;
             margin: 20px 0;
+            text-align: left;
+        }
+
+        .compatibility-breakdown {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .breakdown-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .breakdown-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .breakdown-score {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .bar-container {
+            width: 100px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-left: 15px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        .zodiac-match {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .zodiac-match strong {
+            color: #c44569;
         }
 
         .confetti {
@@ -250,25 +329,89 @@
             .compatibility-score {
                 font-size: 3em;
             }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💕 Love Compatibility Quiz</h1>
-        <p class="subtitle">Discover your perfect match score!</p>
+        <h1>💕 Ultimate Love Compatibility</h1>
+        <p class="subtitle">Discover your Perfect match!</p>
 
-        <!-- Screen 1: Name Input -->
-        <div class="screen active" id="nameScreen">
+        <!-- Screen 1: Basic Info -->
+        <div class="screen active" id="infoScreen">
+            <h3 style="color: #667eea; margin-bottom: 20px; text-align: center;">👫 Your Information</h3>
+            
             <div class="input-group">
-                <label for="nameInput">Enter Your Name:</label>
-                <input type="text" id="nameInput" placeholder="Your beautiful name...">
+                <label for="name1">Your Name:</label>
+                <input type="text" id="name1" placeholder="Your name...">
             </div>
+            
+            <div class="two-column">
+                <div class="input-group">
+                    <label for="zodiac1">Your Zodiac Sign:</label>
+                    <select id="zodiac1">
+                        <option value="">Select...</option>
+                        <option value="aries">♈ Aries</option>
+                        <option value="taurus">♉ Taurus</option>
+                        <option value="gemini">♊ Gemini</option>
+                        <option value="cancer">♋ Cancer</option>
+                        <option value="leo">♌ Leo</option>
+                        <option value="virgo">♍ Virgo</option>
+                        <option value="libra">♎ Libra</option>
+                        <option value="scorpio">♏ Scorpio</option>
+                        <option value="sagittarius">♐ Sagittarius</option>
+                        <option value="capricorn">♑ Capricorn</option>
+                        <option value="aquarius">♒ Aquarius</option>
+                        <option value="pisces">♓ Pisces</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="birthdate1">Birth Date:</label>
+                    <input type="date" id="birthdate1">
+                </div>
+            </div>
+
+            <hr style="margin: 30px 0; border: none; border-top: 2px solid #f0f0f0;">
+
+            <h3 style="color: #667eea; margin-bottom: 20px; text-align: center;">💑 Partner's Information</h3>
+            
             <div class="input-group">
-                <label for="partnerInput">Enter Your Partner's Name:</label>
-                <input type="text" id="partnerInput" placeholder="Their lovely name...">
+                <label for="name2">Partner's Name:</label>
+                <input type="text" id="name2" placeholder="Their name...">
             </div>
-            <button onclick="startQuiz()">Start Quiz ✨</button>
+            
+            <div class="two-column">
+                <div class="input-group">
+                    <label for="zodiac2">Partner's Zodiac:</label>
+                    <select id="zodiac2">
+                        <option value="">Select...</option>
+                        <option value="aries">♈ Aries</option>
+                        <option value="taurus">♉ Taurus</option>
+                        <option value="gemini">♊ Gemini</option>
+                        <option value="cancer">♋ Cancer</option>
+                        <option value="leo">♌ Leo</option>
+                        <option value="virgo">♍ Virgo</option>
+                        <option value="libra">♎ Libra</option>
+                        <option value="scorpio">♏ Scorpio</option>
+                        <option value="sagittarius">♐ Sagittarius</option>
+                        <option value="capricorn">♑ Capricorn</option>
+                        <option value="aquarius">♒ Aquarius</option>
+                        <option value="pisces">♓ Pisces</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="birthdate2">Birth Date:</label>
+                    <input type="date" id="birthdate2">
+                </div>
+            </div>
+
+            <button onclick="validateAndContinue()">Continue to Questions ✨</button>
         </div>
 
         <!-- Screen 2: Questions -->
@@ -276,6 +419,7 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
             </div>
+            <div class="progress-text" id="progressText"></div>
             <div id="questionContainer"></div>
             <button onclick="nextQuestion()" id="nextBtn" disabled>Next →</button>
         </div>
@@ -291,10 +435,19 @@
         <!-- Screen 4: Results -->
         <div class="screen" id="resultScreen">
             <div class="result">
-                <div class="heart-container">💖</div>
+                <div class="heart-container" id="heartEmoji">💖</div>
                 <div class="compatibility-score" id="scoreDisplay">100%</div>
                 <div class="result-message" id="resultMessage">Perfect Match!</div>
+                
+                <div class="zodiac-match" id="zodiacMatch"></div>
+                
+                <div class="compatibility-breakdown">
+                    <div class="breakdown-title">📊 Compatibility Breakdown</div>
+                    <div id="breakdownContainer"></div>
+                </div>
+                
                 <div class="result-detail" id="resultDetail"></div>
+                
                 <button onclick="restart()">Try Again 🔄</button>
             </div>
         </div>
@@ -303,75 +456,148 @@
     <script>
         const questions = [
             {
-                question: "What's your ideal date night?",
-                options: ["Cozy movie night at home", "Adventurous outdoor activity", "Fancy dinner at a restaurant", "Concert or live show"]
+                category: "Love Language",
+                question: "What's your primary love language?",
+                options: ["Words of Affirmation", "Quality Time", "Physical Touch", "Acts of Service", "Receiving Gifts"]
             },
             {
-                question: "Pick your favorite season:",
-                options: ["Spring 🌸", "Summer ☀️", "Autumn 🍂", "Winter ❄️"]
+                category: "Personality",
+                question: "How would you describe yourself?",
+                options: ["Outgoing & Social", "Thoughtful & Reserved", "Adventurous & Spontaneous", "Organized & Planned"]
             },
             {
-                question: "What's your go-to comfort food?",
-                options: ["Pizza", "Ice cream", "Chocolate", "Homemade cookies"]
+                category: "Communication",
+                question: "How do you handle conflicts?",
+                options: ["Talk it out immediately", "Need time to cool down", "Avoid confrontation", "Seek compromise"]
             },
             {
-                question: "How do you handle a bad day?",
-                options: ["Talk it out with someone", "Alone time to recharge", "Distract myself with fun", "Sleep it off"]
+                category: "Lifestyle",
+                question: "What's your ideal weekend?",
+                options: ["Adventure outdoors", "Cozy at home", "Social gatherings", "Cultural activities"]
             },
             {
-                question: "Your dream vacation spot?",
-                options: ["Beach paradise", "Mountain retreat", "European city tour", "Tropical island"]
+                category: "Values",
+                question: "What matters most in a relationship?",
+                options: ["Trust & Honesty", "Fun & Laughter", "Emotional Support", "Shared Goals"]
             },
             {
-                question: "Pick a superpower:",
-                options: ["Time travel", "Mind reading", "Invisibility", "Flying"]
+                category: "Future Goals",
+                question: "Your 5-year vision includes:",
+                options: ["Career growth", "Travel & experiences", "Family & stability", "Personal development"]
             },
             {
+                category: "Emotional",
+                question: "When stressed, you prefer:",
+                options: ["Talking to partner", "Alone time", "Physical activity", "Creative outlet"]
+            },
+            {
+                category: "Romance",
+                question: "Your ideal date night?",
+                options: ["Fancy dinner", "Adventure activity", "Movie & cuddles", "Simple walk & talk"]
+            },
+            {
+                category: "Compatibility",
                 question: "Morning person or night owl?",
-                options: ["Early bird 🌅", "Night owl 🦉", "Depends on the day", "I don't sleep 😅"]
+                options: ["Early bird 🌅", "Night owl 🦉", "Flexible", "Depends on mood"]
             },
             {
-                question: "Your favorite way to relax?",
-                options: ["Reading a book", "Watching shows", "Listening to music", "Taking a nap"]
+                category: "Lifestyle",
+                question: "Your comfort food?",
+                options: ["Home cooked meal", "Pizza or fast food", "Sweet treats", "Healthy snacks"]
             }
         ];
 
         let currentQuestion = 0;
-        let userName = "";
-        let partnerName = "";
+        let userData = {
+            name1: "", zodiac1: "", birthdate1: "",
+            name2: "", zodiac2: "", birthdate2: ""
+        };
         let answers = [];
 
-        function startQuiz() {
-            userName = document.getElementById('nameInput').value.trim();
-            partnerName = document.getElementById('partnerInput').value.trim();
-            if (!userName || !partnerName) {
+        // Zodiac compatibility matrix
+        const zodiacCompatibility = {
+            aries: { aries: 75, taurus: 60, gemini: 85, cancer: 55, leo: 90, virgo: 65, libra: 80, scorpio: 60, sagittarius: 95, capricorn: 55, aquarius: 85, pisces: 70 },
+            taurus: { aries: 60, taurus: 70, gemini: 65, cancer: 90, leo: 65, virgo: 95, libra: 75, scorpio: 85, sagittarius: 60, capricorn: 90, aquarius: 60, pisces: 85 },
+            gemini: { aries: 85, taurus: 65, gemini: 75, cancer: 65, leo: 85, virgo: 70, libra: 95, scorpio: 65, sagittarius: 85, capricorn: 60, aquarius: 90, pisces: 70 },
+            cancer: { aries: 55, taurus: 90, gemini: 65, cancer: 75, leo: 70, virgo: 85, libra: 70, scorpio: 95, sagittarius: 60, capricorn: 85, aquarius: 60, pisces: 95 },
+            leo: { aries: 90, taurus: 65, gemini: 85, cancer: 70, leo: 75, virgo: 65, libra: 90, scorpio: 70, sagittarius: 95, capricorn: 60, aquarius: 85, pisces: 70 },
+            virgo: { aries: 65, taurus: 95, gemini: 70, cancer: 85, leo: 65, virgo: 75, libra: 75, scorpio: 85, sagittarius: 65, capricorn: 95, aquarius: 65, pisces: 80 },
+            libra: { aries: 80, taurus: 75, gemini: 95, cancer: 70, leo: 90, virgo: 75, libra: 75, scorpio: 75, sagittarius: 85, capricorn: 70, aquarius: 95, pisces: 75 },
+            scorpio: { aries: 60, taurus: 85, gemini: 65, cancer: 95, leo: 70, virgo: 85, libra: 75, scorpio: 75, sagittarius: 65, capricorn: 90, aquarius: 65, pisces: 95 },
+            sagittarius: { aries: 95, taurus: 60, gemini: 85, cancer: 60, leo: 95, virgo: 65, libra: 85, scorpio: 65, sagittarius: 75, capricorn: 65, aquarius: 90, pisces: 70 },
+            capricorn: { aries: 55, taurus: 90, gemini: 60, cancer: 85, leo: 60, virgo: 95, libra: 70, scorpio: 90, sagittarius: 65, capricorn: 75, aquarius: 65, pisces: 80 },
+            aquarius: { aries: 85, taurus: 60, gemini: 90, cancer: 60, leo: 85, virgo: 65, libra: 95, scorpio: 65, sagittarius: 90, capricorn: 65, aquarius: 75, pisces: 70 },
+            pisces: { aries: 70, taurus: 85, gemini: 70, cancer: 95, leo: 70, virgo: 80, libra: 75, scorpio: 95, sagittarius: 70, capricorn: 80, aquarius: 70, pisces: 75 }
+        };
+
+        function validateAndContinue() {
+            userData.name1 = document.getElementById('name1').value.trim();
+            userData.name2 = document.getElementById('name2').value.trim();
+            userData.zodiac1 = document.getElementById('zodiac1').value;
+            userData.zodiac2 = document.getElementById('zodiac2').value;
+            userData.birthdate1 = document.getElementById('birthdate1').value;
+            userData.birthdate2 = document.getElementById('birthdate2').value;
+
+            if (!userData.name1 || !userData.name2) {
                 alert('Please enter both names! 💕');
                 return;
             }
+            if (!userData.zodiac1 || !userData.zodiac2) {
+                alert('Please select zodiac signs! ✨');
+                return;
+            }
+
             showScreen('quizScreen');
             displayQuestion();
         }
 
         function checkPerfectMatch() {
-            // Normalize names: remove spaces, convert to lowercase
-            const name1 = userName.toLowerCase().replace(/\s+/g, '');
-            const name2 = partnerName.toLowerCase().replace(/\s+/g, '');
+            const name1 = userData.name1.toLowerCase().replace(/\s+/g, '');
+            const name2 = userData.name2.toLowerCase().replace(/\s+/g, '');
             
-            // Check if names contain "sumera" and "tanush" (in any order)
             const hasSumera = name1.includes('sumera') || name2.includes('sumera');
             const hasTanush = name1.includes('tanush') || name2.includes('tanush');
             
             return hasSumera && hasTanush;
         }
 
-        function calculateCompatibility() {
-            if (checkPerfectMatch()) {
-                return 100;
+        function calculateDetailedCompatibility() {
+            const isPerfect = checkPerfectMatch();
+            
+            if (isPerfect) {
+                return {
+                    overall: 100,
+                    zodiac: 100,
+                    emotional: 100,
+                    communication: 100,
+                    lifestyle: 100,
+                    values: 100,
+                    romance: 100
+                };
             } else {
-                // Random compatibility between 45-85% based on answers
-                const baseScore = 45;
-                const answerBonus = Math.floor(Math.random() * 40);
-                return baseScore + answerBonus;
+                // Calculate zodiac compatibility
+                const zodiacScore = userData.zodiac1 && userData.zodiac2 
+                    ? zodiacCompatibility[userData.zodiac1][userData.zodiac2] 
+                    : 70;
+
+                // Random scores for other categories
+                const emotional = 60 + Math.floor(Math.random() * 30);
+                const communication = 55 + Math.floor(Math.random() * 35);
+                const lifestyle = 50 + Math.floor(Math.random() * 35);
+                const values = 55 + Math.floor(Math.random() * 35);
+                const romance = 60 + Math.floor(Math.random() * 30);
+
+                const overall = Math.round((zodiacScore + emotional + communication + lifestyle + values + romance) / 6);
+
+                return {
+                    overall,
+                    zodiac: zodiacScore,
+                    emotional,
+                    communication,
+                    lifestyle,
+                    values,
+                    romance
+                };
             }
         }
 
@@ -381,6 +607,7 @@
             
             container.innerHTML = `
                 <div class="question">
+                    <div style="color: #667eea; font-size: 0.9em; margin-bottom: 5px;">${question.category}</div>
                     <div class="question-text">${currentQuestion + 1}. ${question.question}</div>
                     <div class="options">
                         ${question.options.map((opt, idx) => `
@@ -405,6 +632,7 @@
         function updateProgress() {
             const progress = ((currentQuestion + 1) / questions.length) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
         }
 
         function nextQuestion() {
@@ -423,74 +651,123 @@
             
             const analyzingMessages = [
                 "Analyzing compatibility...",
-                "Calculating cosmic alignment...",
-                "Reading the stars...",
-                "Consulting the love algorithm...",
-                "Processing romantic chemistry..."
+                "Calculating zodiac alignment...",
+                "Processing personality match...",
+                "Evaluating emotional chemistry...",
+                "Measuring communication style...",
+                "Computing lifestyle compatibility...",
+                "Reading cosmic energy..."
             ];
             
             let messageIndex = 0;
             const messageInterval = setInterval(() => {
                 messageIndex = (messageIndex + 1) % analyzingMessages.length;
                 document.getElementById('analyzingText').textContent = analyzingMessages[messageIndex];
-            }, 800);
+            }, 700);
             
             setTimeout(() => {
                 clearInterval(messageInterval);
                 showResults();
-            }, 3000);
+            }, 4000);
+        }
+
+        function getZodiacName(sign) {
+            const names = {
+                aries: "Aries", taurus: "Taurus", gemini: "Gemini", cancer: "Cancer",
+                leo: "Leo", virgo: "Virgo", libra: "Libra", scorpio: "Scorpio",
+                sagittarius: "Sagittarius", capricorn: "Capricorn", aquarius: "Aquarius", pisces: "Pisces"
+            };
+            return names[sign] || sign;
         }
 
         function showResults() {
-            const score = calculateCompatibility();
+            const scores = calculateDetailedCompatibility();
             const isPerfect = checkPerfectMatch();
             
             showScreen('resultScreen');
             
             // Update score
-            document.getElementById('scoreDisplay').textContent = score + '%';
+            document.getElementById('scoreDisplay').textContent = scores.overall + '%';
             
-            // Update message and details based on score
+            // Update zodiac match
+            document.getElementById('zodiacMatch').innerHTML = `
+                <strong>${getZodiacName(userData.zodiac1)} × ${getZodiacName(userData.zodiac2)}</strong><br>
+                Zodiac Compatibility: ${scores.zodiac}%
+            `;
+            
+            // Update breakdown
+            const breakdown = document.getElementById('breakdownContainer');
+            const categories = [
+                { label: '⭐ Zodiac Match', score: scores.zodiac },
+                { label: '💭 Emotional Connection', score: scores.emotional },
+                { label: '💬 Communication', score: scores.communication },
+                { label: '🏡 Lifestyle Sync', score: scores.lifestyle },
+                { label: '💎 Shared Values', score: scores.values },
+                { label: '💖 Romance Level', score: scores.romance }
+            ];
+            
+            breakdown.innerHTML = categories.map(cat => `
+                <div class="breakdown-item">
+                    <div class="breakdown-label">${cat.label}</div>
+                    <div style="display: flex; align-items: center;">
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${cat.score}%"></div>
+                        </div>
+                        <div class="breakdown-score">${cat.score}%</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update message and details
             let message, detail, heart;
             
-            if (score === 100) {
+            if (scores.overall === 100) {
                 heart = '💖';
-                message = 'Perfect Match!';
-                detail = `${userName} and ${partnerName}, you two are absolutely meant to be! Your compatibility is off the charts! 🌟 The universe has aligned perfectly for your love story. Every answer shows how perfectly you complement each other!`;
+                message = 'PERFECT SOULMATES!';
+                detail = `<strong>${userData.name1} & ${userData.name2}</strong> - You two are absolutely meant to be! 🌟<br><br>
+                    Your compatibility is off the charts in EVERY category! The stars have aligned, your zodiac signs are in perfect harmony, and your personalities complement each other flawlessly. This is the kind of once-in-a-lifetime connection that people dream about!<br><br>
+                    🎯 <strong>Cosmic Verdict:</strong> Your souls recognized each other across time and space. Every aspect of your compatibility - from zodiac alignment to emotional wavelength - points to an extraordinary bond. Treasure this rare and beautiful connection! 💫`;
                 createConfetti();
-            } else if (score >= 80) {
+            } else if (scores.overall >= 80) {
                 heart = '💕';
-                message = 'Great Match!';
-                detail = `${userName} and ${partnerName} have amazing chemistry! With ${score}% compatibility, you share many interests and values. Keep nurturing this connection!`;
-            } else if (score >= 65) {
+                message = 'Excellent Match!';
+                detail = `<strong>${userData.name1} & ${userData.name2}</strong> have amazing compatibility at ${scores.overall}%! 🌟<br><br>
+                    Your zodiac signs (${getZodiacName(userData.zodiac1)} & ${getZodiacName(userData.zodiac2)}) work beautifully together, and your personalities align in most key areas. You share strong emotional chemistry and similar values, which forms a solid foundation for a lasting relationship.<br><br>
+                    Keep communicating openly and nurturing what you have - this is a special connection!`;
+            } else if (scores.overall >= 65) {
                 heart = '💗';
-                message = 'Good Match!';
-                detail = `${userName} and ${partnerName} have solid compatibility at ${score}%. You have a good foundation with room to grow together. Communication is key!`;
+                message = 'Good Compatibility!';
+                detail = `<strong>${userData.name1} & ${userData.name2}</strong> scored ${scores.overall}% compatibility! 💫<br><br>
+                    Your ${getZodiacName(userData.zodiac1)}-${getZodiacName(userData.zodiac2)} combination shows promise, and you share enough common ground to build something meaningful. While there are some areas of difference, these can actually make your relationship more interesting and help you both grow.<br><br>
+                    Focus on your strengths and communicate about your differences - every great relationship takes effort!`;
             } else {
                 heart = '💝';
-                message = 'Compatible!';
-                detail = `${userName} and ${partnerName} scored ${score}%. Every relationship is unique, and compatibility is just one piece of the puzzle. What matters most is how you both grow together!`;
+                message = 'Potential Match!';
+                detail = `<strong>${userData.name1} & ${userData.name2}</strong> scored ${scores.overall}%. 🌸<br><br>
+                    Your ${getZodiacName(userData.zodiac1)}-${getZodiacName(userData.zodiac2)} pairing brings together different energies, which can create both challenges and opportunities for growth. Remember, compatibility is just one factor - what truly matters is how you both choose to show up for each other.<br><br>
+                    With understanding, patience, and genuine effort, any two people can create a beautiful connection!`;
             }
             
-            document.querySelector('.heart-container').textContent = heart;
+            document.getElementById('heartEmoji').textContent = heart;
             document.getElementById('resultMessage').textContent = message;
-            document.getElementById('resultDetail').textContent = detail;
+            document.getElementById('resultDetail').innerHTML = detail;
         }
 
         function createConfetti() {
-            const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b'];
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a'];
             
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 80; i++) {
                 setTimeout(() => {
                     const confetti = document.createElement('div');
                     confetti.className = 'confetti';
                     confetti.style.left = Math.random() * 100 + '%';
                     confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    confetti.style.width = confetti.style.height = (5 + Math.random() * 10) + 'px';
                     document.body.appendChild(confetti);
                     
                     setTimeout(() => confetti.remove(), 3000);
-                }, i * 30);
+                }, i * 25);
             }
         }
 
@@ -504,12 +781,15 @@
         function restart() {
             currentQuestion = 0;
             answers = [];
-            userName = "";
-            partnerName = "";
-            document.getElementById('nameInput').value = "";
-            document.getElementById('partnerInput').value = "";
+            userData = {};
+            document.getElementById('name1').value = "";
+            document.getElementById('name2').value = "";
+            document.getElementById('zodiac1').value = "";
+            document.getElementById('zodiac2').value = "";
+            document.getElementById('birthdate1').value = "";
+            document.getElementById('birthdate2').value = "";
             document.getElementById('nextBtn').disabled = true;
-            showScreen('nameScreen');
+            showScreen('infoScreen');
         }
     </script>
 </body>
